@@ -32,7 +32,7 @@ void insert_max_heap(HeapType* h, element item)
 	h->heap[i] = item;
 }
 
-// ���� �Լ�
+// »èÁ¦ ÇÔ¼ö
 element delete_max_heap(HeapType* h)
 {
 	int parent, child;
@@ -71,15 +71,45 @@ void heap_sort(element a[], int n)
 	free(h);
 }
 
+//우선순위 히프
+void priority_heap() {
+	char check;		//삽입,삭제,종료를 입력받을 문자형 변수
+	element item;	//히프에 들어가기전 보관함
+	HeapType* h;
+
+	h = create();
+	init(h);
+
+	while(1) {
+		printf("삽입(i), 삭제(d) 종료(q): ");
+		scanf_s(" %c", &check);
+
+		if (check == 'q')
+			break;
+		else if (check == 'i') {
+			scanf_s("%c", &check);
+			printf("할일: ");
+			gets_s(item.s, 15);
+			printf("우선순위: ");
+			scanf_s("%d", &item.key);
+			insert_max_heap(h, item);
+		}
+		else if (check=='d') {
+			if (h->heap_size == 0) {
+				printf("비어있음\n");
+				continue;
+			}
+			item = delete_max_heap(h);
+			printf("제일 우선 순위가 높은 일은 %s\n", item.s);
+		}
+		fflush(stdin); //표준입력(키보드) 버퍼를 비워버리는 함수
+	}
+}
+
 #define SIZE 8
 int main(void)
 {
-	element list[SIZE] = { 23, 56, 11, 9, 56, 99, 27, 34 };
-	heap_sort(list, SIZE);
-	for (int i = 0; i < SIZE; i++) {
-		printf("%d ", list[i].key);
-	}
-	printf("\n");
+	priority_heap();
 
 	system("pause");
 
