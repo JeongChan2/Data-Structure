@@ -1,26 +1,33 @@
 #include<stdio.h>
 
-#define element int
+#define element record
+#define NAME_SIZE 10
+
+typedef struct {
+	int key;
+	char name[NAME_SIZE];
+} record;
 
 void insert_sort(element list[], int n) {
 	int i, j;
-	element key;
+	element record;
+	int key;
 	for (i = 1; i < n; i++) {
-		key = list[i];
-		for (j = i - 1; j >= 0 && list[j] > key; j--) {
+		record = list[i];
+		for (j = i - 1; j >= 0 && list[j].key > record.key; j--) {
 			list[j + 1] = list[j];
 		}
-		list[j + 1] = key;
+		list[j + 1] = record;
 	}
 }
 
 int main()
 {
-	element list[] = { 5,3,8,1,2,7 };
-	int size = sizeof(list) / sizeof(list[0]); //πËø≠ list¿« ≈©±‚
+	element list[] = { {6,"GOM"}, {1,"LEE"},{4,"KIM"},{2,"SON"},{3,"PARK"}};
+	int size = sizeof(list) / sizeof(list[0]); //Î∞∞Ïó¥ listÏùò ÌÅ¨Í∏∞
 	insert_sort(list, size);
 	for (int i = 0; i < size; i++) {
-		printf("%d ", list[i]);
+		printf("%s\t", list[i].name);
 	}
 
 	return 0;
